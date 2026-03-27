@@ -1,0 +1,78 @@
+@import "tailwindcss";
+
+@theme {
+  --font-serif: "Playfair Display", serif;
+  --font-sans: "Inter", sans-serif;
+  
+  /* Dynamic Phase Colors */
+  --color-night-bg: #020617; /* Deep Slate/Blue */
+  --color-night-accent: #38bdf8; /* Sky Blue */
+  --color-day-bg: #1e293b; /* Dusk Slate */
+  --color-day-accent: #818cf8; /* Light Indigo */
+  
+  --color-glass: rgba(255, 255, 255, 0.05);
+  --color-glass-border: rgba(255, 255, 255, 0.1);
+}
+
+@layer base {
+  body {
+    @apply transition-colors duration-1000 font-sans antialiased;
+  }
+}
+
+.phase-night {
+  background-color: var(--color-night-bg);
+  color: #f1f5f9;
+}
+
+.phase-day {
+  background-color: var(--color-day-bg);
+  color: #f1f5f9;
+}
+
+.atmosphere-night {
+  background: 
+    radial-gradient(circle at 50% 30%, #1e3a8a 0%, transparent 60%),
+    radial-gradient(circle at 10% 80%, #0ea5e9 0%, transparent 50%);
+  filter: blur(80px);
+  opacity: 0.4;
+}
+
+.atmosphere-day {
+  background: 
+    radial-gradient(circle at 50% 30%, #bfdbfe 0%, transparent 60%),
+    radial-gradient(circle at 10% 80%, #6366f1 0%, transparent 50%);
+  filter: blur(80px);
+  opacity: 0.2;
+}
+
+.glass-panel {
+  @apply backdrop-blur-xl border rounded-3xl transition-all duration-500;
+}
+
+.phase-night .glass-panel {
+  background-color: rgba(15, 23, 42, 0.6);
+  border-color: rgba(56, 189, 248, 0.1);
+}
+
+.phase-day .glass-panel {
+  background-color: rgba(30, 41, 59, 0.8);
+  border-color: rgba(129, 140, 248, 0.15);
+  box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.2);
+}
+
+@keyframes bloodSpatterAnim {
+  0% { opacity: 0; transform: scale(1.1); }
+  10% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.8; }
+  100% { opacity: 0; }
+}
+
+.blood-splatter {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 50;
+  background: radial-gradient(circle, transparent 30%, rgba(220, 38, 38, 0.6) 80%, rgba(153, 27, 27, 0.9) 100%);
+  animation: bloodSpatterAnim 6s ease-out forwards;
+}
